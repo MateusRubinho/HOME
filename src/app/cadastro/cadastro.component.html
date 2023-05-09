@@ -1,0 +1,39 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title style="text-align: center;">{{ folder }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+  <ion-item>
+    <ion-label>Descrição:</ion-label>
+    <ion-input [(ngModel)]="this.objcadastraModel.descricao" type="text"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Saldo:</ion-label>
+    <ion-input [(ngModel)]="this.objcadastraModel.saldo" type="number"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Data:</ion-label>
+    <ion-input type="date"(input)="onDateInput($event)"></ion-input> <br>
+  </ion-item>
+</div>
+
+<div id="salvar">
+  <ion-card>
+    <ion-card-header>
+      <ion-button (click)="setOpen(true)" (click)="salvar()" color="success">Salvar <ion-icon name="save-outline"></ion-icon></ion-button>
+      <ion-toast
+      [isOpen]="isToastOpen"
+      message="Item SALVO com sucesso!"
+      [duration]="2000"
+      (didDismiss)="setOpen(false)"
+    ></ion-toast>
+    </ion-card-header>
+  </ion-card>
+</div>
+</ion-content>
