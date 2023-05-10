@@ -1,6 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ActionSheetController, NavController } from '@ionic/angular';
+import {
+  ActionSheetController,
+  AlertController,
+  NavController,
+} from '@ionic/angular';
 import { cadastroModel } from '../cadastro/cadastro.model';
 
 @Component({
@@ -35,8 +39,28 @@ export class FolderPage implements OnInit {
   public folder!: string;
   private activatedRoute = inject(ActivatedRoute);
   KeycadastraModel: string = 'homeappmobile:KeyCadastro@';
+  // public alertButtons = [
+  //   {
+  //     text: 'Cancel',
+  //     role: 'cancel',
+  //     handler: () => {},
+  //   },
+  //   {
+  //     text: 'OK',
+  //     role: 'confirm',
+  //     handler: () => {
+  //       this.itens = [];
+  //       localStorage.removeItem(this.KeycadastraModel);
+  //     },
+  //   },
+  // ];
+
+  // setResult(ev: any) {
+  //   this.roleMessage = `Dismissed with role: ${ev.detail.role}`;
+  // }
 
   constructor(
+    private alertController: AlertController,
     private navController: NavController,
     private actionSheetCtrl: ActionSheetController
   ) {}
@@ -49,27 +73,71 @@ export class FolderPage implements OnInit {
         this.itens = JSON.parse(objCadastro);
         console.log(this.itens);
       }
-    }, 1000);
-    
+    }, 500);
   }
+  handleRefresh(event: any) {
+    setTimeout(async () => {
+      const objCadastro = localStorage.getItem(this.KeycadastraModel);
+      if (objCadastro) {
+        this.itens = JSON.parse(objCadastro);
+        console.log(this.itens);
+      }
+      if (this.itens.length === 0) {
+        const alert = await this.alertController.create({
+          mode: 'ios',
+          header: 'Atenção!',
+          subHeader: 'Não foram encontrados itens no momento!',
+          buttons: ['OK'],
+        });
+
+        await alert.present();
+      }
+      event.target.complete();
+    }, 100);
+  }
+
   showCadastro() {
     this.navController.navigateForward('/cadastro');
   }
-  showExcluiTudo() {
-    this.itens = [];
-    localStorage.removeItem(this.KeycadastraModel);
-    //this.itens.splice(0);
+  async showExcluiTudo(confirmacao?: boolean) {
+    if (confirmacao === true) {
+      const alert = await this.alertController.create({
+        mode: 'ios',
+        header: 'Atenção!',
+        subHeader: 'Isto limpará todos os itens da sua base de dados!',
+        buttons: [
+          {
+            text: 'Confirmar',
+            cssClass: 'secondary',
+            handler: () => {
+               this.itens = [];
+               localStorage.removeItem(this.KeycadastraModel);
+            },
+          },
+          {
+            text: 'Cancelar',
+            cssClass: 'secondary',
+            handler: () => {},
+          },
+        ],
+      });
+
+      await alert.present();
+    }
   }
-  showUtilizar(item: any) {   
-    // this.itens = [];
-    // localStorage.removeItem(this.KeycadastraModel);
-    // const index = this.itens.findIndex((obj) => obj.id === item.id);
-    // this.itens[index].saldo--;
+
+  showUtilizar(item: any) {
+    const index = this.itens.findIndex((obj) => obj.id === item.id);
+    this.itens[index].saldo--;
+    this.itens.push();
+    localStorage.setItem(this.KeycadastraModel, JSON.stringify(this.itens));
   }
   showExclui(item: any) {
-    this.showExcluiTudo();
-    // const index = this.itens.findIndex((obj) => obj.id === item.id);
-    // this.itens.splice(index, 1);
+   // this.showExcluiTudo(true);
+   const index = this.itens.findIndex((obj) => obj.id === item.id);
+   this.itens[index];
+   localStorage.removeItem(this.KeycadastraModel);
+   this.itens.splice(index, 1);
   }
   async showOpcoes() {
     const actionSheet = await this.actionSheetCtrl.create({
@@ -79,9 +147,10 @@ export class FolderPage implements OnInit {
         {
           text: 'Adicionar Observação',
           icon: 'document-text-outline',
-          data: {
-            action: 'delete',
-          },
+          handler: () => {},
+          // data: {
+          //   action: 'delete',
+          // },
         },
         {
           icon: 'pencil-outline',
@@ -111,8 +180,8 @@ export class FolderPage implements OnInit {
   }
 }
 
-export interface model {
-  id: number;
-  saldo: number;
-  nome: string;
-}
+// export interface model {
+//   id: number;
+//   saldo: number;
+//   nome: string;
+// }

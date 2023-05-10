@@ -12,10 +12,22 @@
   <ion-item>
     <ion-label>Descrição:</ion-label>
     <ion-input #myInput [(ngModel)]="this.objcadastraModel.descricao"  type="text"></ion-input>
+    <ion-icon id="idDescricao" name="alert-circle-outline"></ion-icon>
+    <ion-popover trigger="idDescricao" triggerAction="click">
+      <ng-template>
+        <ion-content class="ion-padding">Neste campo adicione a <strong>descrição</strong> do item em questão!</ion-content>
+      </ng-template>
+    </ion-popover>
   </ion-item>
   <ion-item>
     <ion-label>Saldo:</ion-label>
-    <ion-input [(ngModel)]="this.objcadastraModel.saldo" type="number"></ion-input>
+    <ion-input [(ngModel)]="this.objcadastraModel.saldo" type="text"></ion-input>
+    <ion-icon id="idSaldo" name="alert-circle-outline"></ion-icon>
+    <ion-popover trigger="idSaldo" triggerAction="click">
+      <ng-template>
+        <ion-content class="ion-padding">Neste campo adicione a <strong>quantidade</strong> do item em questão!</ion-content>
+      </ng-template>
+    </ion-popover>
   </ion-item>
   <ion-item>
     <ion-label>Data:</ion-label>

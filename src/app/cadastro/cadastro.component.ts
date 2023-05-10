@@ -15,9 +15,11 @@ export class CadastroComponent implements OnInit {
   objcadastraModel: cadastroModel;
   proximoID: number = 1;
   isToastOpen = false;
+  textdanger: boolean;
 
   constructor(private navController: NavController) {
     //this.myInput = new IonInput(null);
+    this.textdanger = false;
     this.objcadastraModel = {
       id: this.proximoID++,
       descricao: '',
@@ -42,25 +44,30 @@ export class CadastroComponent implements OnInit {
     this.objcadastraModel.data = valor;
   }
   salvar() {
-    // if (!localStorage.getItem(this.KeycadastraModel)) {
-    //   localStorage.setItem(this.KeycadastraModel, JSON.stringify([]));    }
-    let novoObjeto: cadastroModel = {
-      id: this.proximoID++,
-      descricao: this.objcadastraModel.descricao,
-      saldo: this.objcadastraModel.saldo,
-      data: this.objcadastraModel.data,
-    };
-    // let itens = JSON.parse(localStorage.getItem(this.KeycadastraModel) || '[]') ;
-    // itens.push(novoObjeto);
-    // localStorage.setItem(this.KeycadastraModel, JSON.stringify(itens));
-    let itens = JSON.parse(localStorage.getItem(this.KeycadastraModel) || '[]');
-    if (!Array.isArray(itens)) {
-      itens = [];
-    }
-    itens.push(novoObjeto);
-    localStorage.setItem(this.KeycadastraModel, JSON.stringify(itens));
-    setTimeout(() => {
-      this.navController.navigateForward('folder/Inbox');
-    });
+    try{
+        // if (!localStorage.getItem(this.KeycadastraModel)) {
+        //   localStorage.setItem(this.KeycadastraModel, JSON.stringify([]));    }
+        let novoObjeto: cadastroModel = {
+          id: this.proximoID++,
+          descricao: this.objcadastraModel.descricao,
+          saldo: this.objcadastraModel.saldo,
+          data: this.objcadastraModel.data,
+        };
+        // let itens = JSON.parse(localStorage.getItem(this.KeycadastraModel) || '[]') ;
+        // itens.push(novoObjeto);
+        // localStorage.setItem(this.KeycadastraModel, JSON.stringify(itens));
+        let itens = JSON.parse(localStorage.getItem(this.KeycadastraModel) || '[]');
+        if (!Array.isArray(itens)) {
+          itens = [];
+        }
+        itens.push(novoObjeto);
+        localStorage.setItem(this.KeycadastraModel, JSON.stringify(itens));
+        setTimeout(() => {
+          this.navController.navigateForward('folder/Inicio');
+        });
+  }catch{
+
+  }
+
   }
 }

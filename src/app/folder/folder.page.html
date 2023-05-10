@@ -8,36 +8,64 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">{{ folder }}</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-card>
     <ion-card-header>
-      <ion-button color="success" (click)="showCadastro()">Cadastrar item <ion-icon
-          name="add-circle-outline"></ion-icon></ion-button>
-      <ion-button color="danger" (click)="showExcluiTudo()">Excluir tudo <ion-icon
-          name="trash-outline"></ion-icon></ion-button>
+      <ion-button color="success" (click)="showCadastro()">Cadastrar item
+        <ion-icon name="add-circle-outline"></ion-icon>
+      </ion-button>
+      <ion-button  color="danger" (click)="showExcluiTudo(true)">
+        Excluir tudo <ion-icon name="trash-outline"></ion-icon>
+      </ion-button>
+      <!-- <ion-alert
+  trigger="present-alert"
+  header="Alert!"
+  [buttons]="alertButtons"
+  (didDismiss)="setResult($event)"
+></ion-alert> -->
     </ion-card-header>
   </ion-card>
-  <ion-card class="card" *ngFor="let produtos of itens">
-    <ion-card-header>
-      <ion-card-title><strong>Descrição: </strong>{{ produtos.descricao }}</ion-card-title>
-      <ion-card-subtitle><strong>Saldo: </strong>{{ produtos.saldo }}</ion-card-subtitle>
-      <div>
-        <strong>Data: </strong>{{ produtos.data }}
-      </div>
-      <hr />
-      <div id="utilizarCadastro">
-        <ion-button color="warning" (click)="showUtilizar(produtos)">Utilizar <ion-icon
-            name="checkmark-circle-outline"></ion-icon></ion-button>
-        <ion-button (click)="showOpcoes()">Opções <ion-icon name="settings-outline"></ion-icon></ion-button>
-      </div>
-      <div id="excluir">
-        <ion-button color="danger" (click)="showExclui(produtos)">Excluir item <ion-icon
-            name="trash-outline"></ion-icon></ion-button>
-      </div>
-    </ion-card-header>
-  </ion-card>
+  <hr/>
+  <div *ngIf="this.itens.length <= 0" id="textoCentral">
+    <h1>Seja Bem vindo(a)</h1>
+    <h3>
+      Tenha controle sobre o estoque e armazenamento de sua despensa e matenha-se
+      por dentro de tudo o que falta, o que tem, e o que deseja ter!
+    </h3>
+  </div>
+  <ion-content
+    padding
+    class="background"
+    *ngIf="this.itens.length <= 0; else aparecerItens">
+  </ion-content>
+  <ng-template #aparecerItens>
+    <ion-card class="card" *ngFor="let produtos of itens;">
+      <ion-card-header>
+        <ion-card-title>
+          <strong>Descrição: </strong>{{ produtos.descricao }}
+        </ion-card-title>
+        <ion-card-subtitle>
+          <strong>Saldo: </strong>{{ produtos.saldo }}
+        </ion-card-subtitle>
+        <div>
+          <strong>Data: </strong>{{ produtos.data | date: 'MM/dd/yyyy'}}
+        </div>
+        <div id="utilizarCadastro">
+          <ion-button color="warning" (click)="showUtilizar(produtos)">
+            Utilizar <ion-icon name="checkmark-circle-outline"></ion-icon>
+          </ion-button>
+          <ion-button (click)="showOpcoes()">
+            Opções <ion-icon name="settings-outline"></ion-icon>
+          </ion-button>
+        </div>
+        <div id="excluir">
+          <ion-button color="danger" (click)="showExclui(produtos)">
+            Excluir item <ion-icon name="trash-outline"></ion-icon>
+          </ion-button>
+        </div>
+      </ion-card-header>
+    </ion-card>
+  </ng-template>
 </ion-content>
