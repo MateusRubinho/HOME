@@ -43,10 +43,14 @@ export class FolderPage implements OnInit {
 
   ngOnInit() {
     this.folder = this.activatedRoute.snapshot.paramMap.get('id') as string;
-    const configuracaoPadraoSalva = localStorage.getItem(this.KeycadastraModel);
-    if (configuracaoPadraoSalva) {
-      this.itens = JSON.parse(configuracaoPadraoSalva);
-    }
+    setTimeout(() => {
+      const objCadastro = localStorage.getItem(this.KeycadastraModel);
+      if (objCadastro) {
+        this.itens = JSON.parse(objCadastro);
+        console.log(this.itens);
+      }
+    }, 1000);
+    
   }
   showCadastro() {
     this.navController.navigateForward('/cadastro');
@@ -56,9 +60,11 @@ export class FolderPage implements OnInit {
     localStorage.removeItem(this.KeycadastraModel);
     //this.itens.splice(0);
   }
-  showUtilizar(item: any) {
-    const index = this.itens.findIndex((obj) => obj.id === item.id);
-    this.itens[index].saldo--;
+  showUtilizar(item: any) {   
+    // this.itens = [];
+    // localStorage.removeItem(this.KeycadastraModel);
+    // const index = this.itens.findIndex((obj) => obj.id === item.id);
+    // this.itens[index].saldo--;
   }
   showExclui(item: any) {
     this.showExcluiTudo();

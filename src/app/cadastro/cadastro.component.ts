@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { cadastroModel } from './cadastro.model';
+import { IonInput, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-cadastro',
@@ -7,6 +8,7 @@ import { cadastroModel } from './cadastro.model';
   styleUrls: ['./cadastro.component.scss'],
 })
 export class CadastroComponent implements OnInit {
+  @ViewChild('myInput', { static: false }) myInput: IonInput | undefined;
   public folder: string = 'Cadastro';
   KeycadastraModel: string = 'homeappmobile:KeyCadastro@';
   itens: cadastroModel[] = [];
@@ -14,7 +16,8 @@ export class CadastroComponent implements OnInit {
   proximoID: number = 1;
   isToastOpen = false;
 
-  constructor() {
+  constructor(private navController: NavController) {
+    //this.myInput = new IonInput(null);
     this.objcadastraModel = {
       id: this.proximoID++,
       descricao: '',
@@ -23,7 +26,12 @@ export class CadastroComponent implements OnInit {
     };
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    setTimeout(() => {
+      if (this.myInput) {
+        this.myInput?.setFocus();      }
+    }, 100);
+  }
 
   setOpen(isOpen: boolean) {
     this.isToastOpen = isOpen;
@@ -51,5 +59,8 @@ export class CadastroComponent implements OnInit {
     }
     itens.push(novoObjeto);
     localStorage.setItem(this.KeycadastraModel, JSON.stringify(itens));
+    setTimeout(() => {
+      this.navController.navigateForward('folder/Inbox');
+    });
   }
 }
