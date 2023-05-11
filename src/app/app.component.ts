@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +9,7 @@ export class AppComponent {
   public appPages = [
     { title: 'Inicio', url: '/folder/Inicio ', icon: 'home' },
     { title: 'Cadastrar Item', url: 'cadastro', icon: 'add' },
+    { title: 'Calculadora', url: 'calculadora', icon: 'calculator' },
     { title: 'Dúvidas', url: 'duvida', icon: 'warning' },
     { title: 'Sair', url: '/folder/Sair', icon: 'exit' },
     // { title: 'Trash', url: '/folder/trash', icon: 'trash' },

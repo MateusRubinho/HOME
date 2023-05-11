@@ -1,0 +1,69 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title style="text-align: center">{{ folder }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card>
+    <div id="display">
+      <div id="displayInterno">
+        <h5>{{ visor2 }}</h5>
+        <h1>{{ visor }}</h1>
+      </div>
+    </div>
+    <!-- <ion-card-header>
+      <ion-card-title>Card Title</ion-card-title>
+      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+    </ion-card-header> -->
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-button (click)="resultTela(1)"
+            ><ion-col id="porcento">%</ion-col></ion-button
+          >
+          <ion-button (click)="resultTela(1)"
+            ><ion-col id="CE">CE</ion-col></ion-button
+          >
+          <ion-button (click)="limparTudo()"
+            ><ion-col id="C">C</ion-col></ion-button
+          >
+          <ion-button (click)="excluir()"
+            ><ion-col id="excluir">⌫</ion-col></ion-button
+          >
+        </ion-row>
+        <ion-row>
+          <ion-button (click)="resultTela(7)"><ion-col>7</ion-col></ion-button>
+          <ion-button (click)="resultTela(8)"><ion-col>8</ion-col></ion-button>
+          <ion-button (click)="resultTela(9)"><ion-col>9</ion-col></ion-button>
+          <ion-button (click)="resultTela(1)"><ion-col>x</ion-col></ion-button>
+        </ion-row>
+        <ion-row>
+          <ion-button (click)="resultTela(4)"><ion-col>4</ion-col></ion-button>
+          <ion-button (click)="resultTela(5)"><ion-col>5</ion-col></ion-button>
+          <ion-button (click)="resultTela(6)"><ion-col>6</ion-col></ion-button>
+          <ion-button (click)="resultTela(1)"
+            ><ion-col id="subtracao">-</ion-col></ion-button
+          >
+        </ion-row>
+        <ion-row>
+          <ion-button (click)="resultTela(1)"><ion-col>1</ion-col></ion-button>
+          <ion-button (click)="resultTela(2)"><ion-col>2</ion-col></ion-button>
+          <ion-button (click)="resultTela(3)"><ion-col>3</ion-col></ion-button>
+          <ion-button (click)="soma()"><ion-col>+</ion-col></ion-button>
+        </ion-row>
+        <ion-row>
+          <ion-button (click)="resultTela(0)"><ion-col>0</ion-col></ion-button>
+          <ion-button (click)="resultTela(1)"
+            ><ion-col id="virgula">,</ion-col></ion-button
+          >
+          <ion-button (click)="igual()"
+            ><ion-col id="igual">=</ion-col></ion-button
+          >
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

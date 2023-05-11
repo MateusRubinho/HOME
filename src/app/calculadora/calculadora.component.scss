@@ -1,0 +1,52 @@
+ion-card-content {
+  margin-top: 30px;
+  //margin-left: 65px;
+}
+#display {
+  margin-top: 40px;
+  height: 100px;
+  width: 100%;
+  background-color: aliceblue;
+}
+h1 {
+  color: black;
+}
+h5 {
+  margin-bottom: -5px;
+  color: black;
+}
+#displayInterno {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  margin-right: 20px;
+}
+#CE {
+  width: 50px;
+}
+#C {
+  width: 48px;
+}
+#porcento {
+  width: 50px;
+}
+#excluir {
+  width: 50px;
+}
+#subtracao {
+  width: 50px;
+}
+#virgula {
+  width: 50px;
+}
+#igual {
+  width: 132px;
+}
+ion-button {
+  margin-bottom: 5px;
+  height: 50px;
+}
+ion-col {
+  padding: 20px;
+  font-size: 15px;
+}
