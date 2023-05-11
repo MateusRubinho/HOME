@@ -53,14 +53,17 @@
           <strong>Data: </strong>{{ produtos.data | date: 'MM/dd/yyyy'}}
         </div>
         <div id="utilizarCadastro">
-          <ion-button color="warning" (click)="showUtilizar(produtos)">
-            Utilizar <ion-icon name="checkmark-circle-outline"></ion-icon>
+          <ion-button color="warning" (click)="showAdicionar(produtos)">
+            Adicionar <ion-icon name="navigate-outline"></ion-icon>
           </ion-button>
-          <ion-button (click)="showOpcoes()">
-            Opções <ion-icon name="settings-outline"></ion-icon>
+          <ion-button id="utilizar" color="warning" (click)="showUtilizar(produtos)">
+            Utilizar <ion-icon name="checkmark-circle-outline"></ion-icon>
           </ion-button>
         </div>
         <div id="excluir">
+          <ion-button (click)="showOpcoes()">
+            Opções <ion-icon name="settings-outline"></ion-icon>
+          </ion-button>
           <ion-button color="danger" (click)="showExclui(produtos)">
             Excluir item <ion-icon name="trash-outline"></ion-icon>
           </ion-button>
@@ -68,4 +71,13 @@
       </ion-card-header>
     </ion-card>
   </ng-template>
+  <!-- <ion-button id="present-alert">Click Me</ion-button> -->
+  
+    <ion-alert
+    id="present-alert"
+    trigger="present-alert"
+    header="Please enter your info"
+    [buttons]="alertButtons"
+    [inputs]="alertInputs"
+  ></ion-alert>
 </ion-content>

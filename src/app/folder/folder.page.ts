@@ -13,6 +13,32 @@ import { cadastroModel } from '../cadastro/cadastro.model';
   styleUrls: ['./folder.page.scss'],
 })
 export class FolderPage implements OnInit {
+  public alertButtons = ['OK'];
+  public alertInputs = [
+    {
+      placeholder: 'Name',
+    },
+    {
+      placeholder: 'Nickname (max 8 characters)',
+      attributes: {
+        maxlength: 8,
+      },
+    },
+    {
+      type: 'number',
+      placeholder: 'Age',
+      min: 1,
+      max: 100,
+    },
+    {
+      type: 'textarea',
+      placeholder: 'A little about yourself',
+    },
+  ];
+
+
+
+
   public actionSheetButtons = [
     {
       text: 'Delete',
@@ -62,8 +88,9 @@ export class FolderPage implements OnInit {
   constructor(
     private alertController: AlertController,
     private navController: NavController,
-    private actionSheetCtrl: ActionSheetController
-  ) {}
+    private actionSheetCtrl: ActionSheetController,
+  ) {
+  }
 
   ngOnInit() {
     this.folder = this.activatedRoute.snapshot.paramMap.get('id') as string;
@@ -125,7 +152,12 @@ export class FolderPage implements OnInit {
       await alert.present();
     }
   }
-
+  showAdicionar(item: any) {
+    const index = this.itens.findIndex((obj) => obj.id === item.id);
+    this.itens[index].saldo++;
+    this.itens.push();
+    localStorage.setItem(this.KeycadastraModel, JSON.stringify(this.itens));
+  }
   showUtilizar(item: any) {
     const index = this.itens.findIndex((obj) => obj.id === item.id);
     this.itens[index].saldo--;
@@ -147,7 +179,8 @@ export class FolderPage implements OnInit {
         {
           text: 'Adicionar Observação',
           icon: 'document-text-outline',
-          handler: () => {},
+          handler: () => {
+          },
           // data: {
           //   action: 'delete',
           // },
@@ -155,16 +188,10 @@ export class FolderPage implements OnInit {
         {
           icon: 'pencil-outline',
           text: 'Alterar Descrição',
-          data: {
-            action: 'delete',
-          },
-        },
-        {
-          icon: 'bag-outline',
-          text: 'Alterar Saldo',
-          data: {
-            action: 'share',
-          },
+          handler: () => {},
+          // data: {
+          //   action: 'delete',
+          // },
         },
         {
           text: 'Cancelar',
